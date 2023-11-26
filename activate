@@ -1,0 +1,2 @@
+source pytest-python3.8/bin/activate
+source $HOME/.bashrc

@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+
+""" this script is will clean locks from parallel.sh on abnormal abort
+
+    Signal the process with SIGHUP then wait for it to shutdown.  Keep signaling ever few
+    seconds.
+
+"""
+import json
+import subprocess
+import os
+import sys
+import signal
+import time
+
+def procStatus(pid):
+    try:
+        for line in open("/proc/%d/status" % pid).readlines():
+            if line.startswith("State:"):
+                return line.split(":",1)[1].strip().split(' ')[0]
+    except FileNotFoundError:
+        return None
+
+    return None
+
+if os.path.exists("pytest.pid"):
+    with open("pytest.pid", "r") as fh:
+        pytest_pid = int(fh.readline())
+
+    timeout = time.time() + 3*60
+    next_sig = time.time() + 30
+
+    status = procStatus(pytest_pid)
+    while status and timeout > time.time():
+        if next_sig < time.time():
+            print('Sending SIGHUP to pytest pid %s' % (pytest_pid))
+            os.kill(pytest_pid, signal.SIGHUP)
+            next_sig = time.time() + 30
+
+        time.sleep(5)
+        status = procStatus(pytest_pid)
+        print(status)
+
+    timeout = time.time() + 2*60
+    while status and timeout > time.time():
+        if next_sig < time.time():
+            print('Sending SIGTERM to pytest pid %s' % (pytest_pid))
+            os.kill(pytest_pid, signal.SIGTERM)
+            next_sig = time.time() + 30
+        status = procStatus(pytest_pid)
+        print(status)
+        time.sleep(5)
+
+path = os.getenv("BUILD_ARTIFACTSTAGINGDIRECTORY", ".")
+filename = os.path.join(path, "parallel.locks.json")
+if os.path.exists(filename):
+    with open(filename,"r") as fd:
+        locks = json.load(fd)
+
+    for node in locks:
+        print("Unlocking node %s" % (node))
+        output = subprocess.check_output(f"mdb unlock {node}".split())
+        print(output)
+else:
+    print("No lock file found")
+
+sys.exit(0)

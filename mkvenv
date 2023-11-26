@@ -1,0 +1,115 @@
+#!/bin/bash
+
+
+set -e
+if [ "$DEBUG" != "" ]; then
+  set -x
+fi
+
+if [ "$VIRTUAL_ENV" != "" ]; then
+  echo "You are in a virtual env.  exit with 'deactivate' before running this script"
+  exit 1
+fi
+PVER=${1:-python3.8}
+
+cd $(dirname $0)
+
+mkdir -p app-data-$PVER
+rm -rf pytest-$PVER
+#python3.6 -m venv NAME
+
+TO_INSTALL=""
+if [ "$(which $PVER)" == "" ]; then
+	echo $PVER not installed.  Installing now
+	TO_INSTALL=" python3.8 python3.8-dev python3-pip"
+fi
+if [ "$(which curl)" == "" ]; then
+	echo $PVER not installed.  Installing now
+	TO_INSTALL=" curl"
+fi
+if [ "$(which pg_config)" == "" ]; then
+	echo $PVER not installed.  Installing now
+	TO_INSTALL=" libpq-dev"
+fi
+
+if [ "$TO_INSTALL" != "" ]; then
+	sudo apt install -y $TO_INSTALL
+fi
+
+$PVER -m pip install virtualenv==20.14.1
+$PVER -m virtualenv --no-pip --no-setuptools --app-data $(pwd)/app-data-$PVER pytest-$PVER
+
+#sudo apt install -y libssh2-1-dev sshpass libbz2-dev liblzma-dev intltool libxml2-utils libglib2.0-dev-bin libpq-dev libgirepository1.0-dev postgresql-common cmake make libgtk-3-dev libssl-dev
+
+source pytest-$PVER/bin/activate
+curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py "pip==21.0" "setuptools==41.0.1" "wheel==0.37.1"
+rm get-pip.py
+pip config set global.disable-pip-version-check true
+export XDG_CACHE_HOME=$(pwd)/app-data-$PVER
+pip cache dir
+
+export PYTHONIOENCODING=utf8
+
+function clone_repo() {
+  local repo=$1
+  local origin=$2
+  local branch=$3
+
+  if [ "${origin}" == "" ]; then
+	origin=https://github.com/kurt-cb/${repo}.git
+  fi
+
+  if [ ! -d "${repo}" ]; then
+        #ssh -o "StrictHostKeyChecking no" -o "PubkeyAuthentication=no"  github.com ls | true
+        git clone $origin $repo
+        cd $repo
+        git fetch
+        git checkout master
+        git pull origin
+        cd ..
+  else
+        cd $repo
+        git fetch
+        git checkout master
+        git pull origin
+        cd ..
+  fi
+}
+
+clone_repo pytest-xdist
+clone_repo pytest-nunit
+clone_repo pytest-ads-testplan
+#clone_repo KaizenBotFramework https://itron@dev.azure.com/itron/RnD/_git/GFW.IVV KaizenBot_master
+
+pip install -e pytest-xdist
+pip install -e pytest-nunit
+pip install -e pytest-ads-testplan
+
+#pip install wheel
+pip install inquirer==2.10.0
+pip install pytest==7.1.3
+pip install pytest-html==3.1.1
+pip install pytest-metadata==2.0.2
+pip install requests==2.28.1
+pip install requests-oauthlib==1.3.1
+pip install tblib==1.7.0
+pip install azure-devops==6.0.0b2
+pip install json2html==1.3.0
+pip install beautifulsoup4==4.11.1
+
+pip install setuptools_rust rust tk
+pip install -e src/itron.meter.pkg
+
+#pip install --extra-index-url=http://kaizenbot-azure.itron.com:18080 --trusted-host=kaizenbot-azure.itron.com KaizenBot-Gen5RivaLibrary==1.4.6
+#pip install --extra-index-url=http://kaizenbot-azure.itron.com:18080 --trusted-host=kaizenbot-azure.itron.com KaizenBot-AppServLibrary==1.3.1
+pip install cache/KaizenBot-Linux-2.2.tar.gz
+pip install cache/KaizenBot-CommonLibrary-2.6.5.tar.gz
+#pip install cache/KaizenBot-Gen5RivaLibrary-1.4.6.tar.gz
+#pip install cache/KaizenBot-AppServLibrary-1.3.1.tar.gz
+
+echo build VENV successful
+echo
+echo To activate:
+echo source pytest-$PVER/bin/activate
+
