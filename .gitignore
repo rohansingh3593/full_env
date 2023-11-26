@@ -1,0 +1,10 @@
+*egg-info
+__pycache__
+session-*
+report.html
+ssh2-python
+meld
+app-data-python3.8
+pytest-ads-testplan/
+pytest-nunit/
+
