@@ -5,7 +5,7 @@ import io
 import datetime
 import logging
 import abc
-from itron.meter.MeterInstance import MeterInstanceBase, MeterInstanceDB
+from rohan.meter.MeterInstance import MeterInstanceBase, MeterInstanceDB
 from psycopg2 import sql
 import psycopg2
 import base64

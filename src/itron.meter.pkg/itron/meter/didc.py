@@ -10,8 +10,8 @@ import logging
 import time
 import datetime
 
-import itron.meter.uart as uart
-from itron.meter.AbstractMeter import AbstractMeter
+import rohan.meter.uart as uart
+from rohan.meter.AbstractMeter import AbstractMeter
 from tools.stm import STM32Programmer
 
 
@@ -25,7 +25,7 @@ class DIDC(AbstractMeter):
     mode = ["uboot", "linux"]
     prompt = {"uboot": "STM32MP>", "linux": "#"}
     user = {"uboot": "", "linux": "root"}
-    password = {"uboot": "", "linux": "itron"}
+    password = {"uboot": "", "linux": "rohan"}
 
     def __init__(self, port, mode) -> None:
         super().__init__()

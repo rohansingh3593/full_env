@@ -1,10 +1,10 @@
 
 [project]
-name = "itron.meter.pkg"
+name = "rohan.meter.pkg"
 version = "1.0.0"
-description = "Itron meter package"
+description = "rohan meter package"
 authors = [
-    {name = "Kurt Godwin", email = "kgodwin@itron.com"},
+    {name = "Kurt Godwin", email = "kgodwin@rohan.com"},
 ]
 dependencies = [
     "GitPython>=3.1.27",
@@ -24,15 +24,15 @@ readme = "README.md"
 license = {text = "UNLICENSED"}
 
 [project.scripts]
-mm = "itron.scripts.mm:main"
-mdb = "itron.scripts.mdb:main"
-clean_locks = "itron.scripts.clean_locks:main"
-ota-pack = "itron.scripts.otapack:main"
-signer-client = "itron.scripts.signerclient:main"
+mm = "rohan.scripts.mm:main"
+mdb = "rohan.scripts.mdb:main"
+clean_locks = "rohan.scripts.clean_locks:main"
+ota-pack = "rohan.scripts.otapack:main"
+signer-client = "rohan.scripts.signerclient:main"
 
 
 [project.entry-points.pytest11]
-parallel = "itron.plugins.xdist_meter"
+parallel = "rohan.plugins.xdist_meter"
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2022 Itron, Inc.
+# Copyright (c) 2022 rohan, Inc.
 # Author: Benjamin Loomis
 # File: sign_distdir.py
 #

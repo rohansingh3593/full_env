@@ -121,7 +121,7 @@ if __name__ == '__main__':
         #s.send("version")
 
         # connect to linux
-        #s = UART('/dev/ttyUSB0', 115200, '#', "root", "itron")
+        #s = UART('/dev/ttyUSB0', 115200, '#', "root", "rohan")
         s = UART('/dev/ttyUSB0', 115200, '#', "root")
         print(s.send("uname -a"))
         s.send("exit")

@@ -21,7 +21,7 @@ from . import Walker
 from tempfile import TemporaryDirectory
 import requests
 from click import progressbar
-import itron.meter.FwMan as FwMan
+import rohan.meter.FwMan as FwMan
 import csv
 import codecs
 
@@ -78,7 +78,7 @@ class MeterMan:
         self.logger.info("Uploading SSH keys...")
         home = os.getenv("HOME")
         if os.path.exists(f"{home}/.ssh/id_rsa.pub"):
-            subprocess.run(["sshpass", "-p", "itron", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=False)
+            subprocess.run(["sshpass", "-p", "rohan", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=False)
 
 
     def reboot_meter( self, timeout=3*60):
@@ -102,7 +102,7 @@ class MeterMan:
         return self.wait_reconnect(connection, command, timeout)
 
     def gmr_from_connected( self, connection, timeout=3*60 ):
-        return self._reboot_and_wait("/usr/share/itron/scripts/GlobalMeterReset.sh", connection, timeout)
+        return self._reboot_and_wait("/usr/share/rohan/scripts/GlobalMeterReset.sh", connection, timeout)
 
     def gmr(self, timeout=3*60):
         self.logger.info("GMR")
@@ -321,7 +321,7 @@ class MeterMan:
         timeout = time.time() + 60
         header = '-header' if header else ''
         while time.time() < timeout:
-            cmd = f"sqlite3 /usr/share/itron/database/muse01.db {header} {options} '{query}'"
+            cmd = f"sqlite3 /usr/share/rohan/database/muse01.db {header} {options} '{query}'"
             code, table, error = connection.command_with_all(cmd, splitlines=False)
             if error or code:
                 self.logger.error("sqlerror: (%s) %s", code, error)

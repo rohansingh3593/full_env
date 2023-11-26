@@ -22,12 +22,12 @@ import multiprocessing
 from queue import Empty
 from tblib import pickling_support
 from multiprocessing import Manager, Process, Event
-from itron.meter.MeterInstance import MeterInstanceUser,MeterInstanceDB
+from rohan.meter.MeterInstance import MeterInstanceUser,MeterInstanceDB
 import logging
 from contextlib import ExitStack,contextmanager
 import atexit
 from _pytest._io import TerminalWriter
-from  itron.meter.MeterDB import MeterDB,MeterDBBase
+from  rohan.meter.MeterDB import MeterDB,MeterDBBase
 import random
 import signal
 import rpyc

@@ -12,7 +12,7 @@ from datetime import date, datetime
 
 LOGGER = logging.getLogger(__name__)
 
-#pytest_plugins = "itron.plugins.parallel"
+#pytest_plugins = "rohan.plugins.parallel"
 # start time of session
 session_start = datetime.now()
 

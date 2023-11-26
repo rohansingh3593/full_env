@@ -20,7 +20,7 @@ def get_build_path():
 
 def get_version_data():
     """ this file is created by running:
-        pytest pytest-regress-venv/src/itron.meter.pkg/itron/meter/test_fwman.py::test_make_fw_dict
+        pytest pytest-regress-venv/src/rohan.meter.pkg/rohan/meter/test_fwman.py::test_make_fw_dict
 
         That testcase will scan the OWI_BUILDS web site for new builds
 
@@ -40,9 +40,9 @@ version_tree = get_version_data()
 
 
 def decrypt(encrypted_file, target, logger=logging):
-    # curl -F "fwdl=@DI-AppServices-Package-1.5.270.0.tar.gz" http://ral-rdpwsgi-01.itron.com/fwdl-decrypter --output decrypted.tar.gz
+    # curl -F "fwdl=@DI-AppServices-Package-1.5.270.0.tar.gz" http://ral-rdpwsgi-01.rohan.com/fwdl-decrypter --output decrypted.tar.gz
     headers = {'User-Agent': 'Mozilla/5.0'}
-    link    = 'http://ral-rdpwsgi-01.itron.com/fwdl-decrypter'
+    link    = 'http://ral-rdpwsgi-01.rohan.com/fwdl-decrypter'
     with requests.Session() as session:
         with open(encrypted_file, 'rb') as xmit_file:
             files = {'fwdl': xmit_file}
@@ -136,7 +136,7 @@ def get_preinstall(fw_package, as_dir=None):
         with tarfile.open(name=ROOTFS,mode='r:gz') as t:
             items = t.getmembers()
 
-        didir = 'usr/share/itron/PreInstall'
+        didir = 'usr/share/rohan/PreInstall'
         cur_pack = []
         for i in items:
             # if this is a preinstall file, fetch it

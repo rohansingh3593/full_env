@@ -1,14 +1,14 @@
 import pytest
 
-from itron.meter.Gen5Meter import SSHGen5Meter
-from itron.meter.remoteserial import RemoteSerial
+from rohan.meter.Gen5Meter import SSHGen5Meter
+from rohan.meter.remoteserial import RemoteSerial
 
 
 
 # TODO: create SSHSerial class that implements SSH
 # to serial console, then connect to meter via /dev/ttyXXX
 # this requires meter name to include this info.
-# Suggestion: meter name is 'serial://itron.password@1.2.3.4:/dev/ttyXXX' in database
+# Suggestion: meter name is 'serial://rohan.password@1.2.3.4:/dev/ttyXXX' in database
 
 
 class SSHSerial(SSHGen5Meter):

@@ -2,8 +2,8 @@ import pytest
 import logging
 from datetime import timedelta
 import os
-from itron.plugins.parse_args import parse_meter_options,add_meter_options
-from itron.plugins.metersched import MeterScheduler
+from rohan.plugins.parse_args import parse_meter_options,add_meter_options
+from rohan.plugins.metersched import MeterScheduler
 
 """
 TODO: implement logger output to master

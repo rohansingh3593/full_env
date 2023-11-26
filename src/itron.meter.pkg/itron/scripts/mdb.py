@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from kaizenbot.kbotdbclient_psql import _KBotDBClient_psql
-from itron.meter.MeterDB import MeterDB
+from rohan.meter.MeterDB import MeterDB
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import argparse
 import abc
@@ -15,7 +15,7 @@ import time
 import psycopg2
 
 def run_query(query):
-    resources =_KBotDBClient_psql('kaizenbot.itron.com:5432', "kgodwin", 'AppServe', 'appservschema')
+    resources =_KBotDBClient_psql('kaizenbot.rohan.com:5432', "kgodwin", 'AppServe', 'appservschema')
 
 def getDuration(then, now = datetime.datetime.now(tz=datetime.timezone.utc), interval = "default"):
 
@@ -116,7 +116,7 @@ class MeterWrapper():
         #{'NODE_IP': '10.176.100.139', 'PLATFORM_ID': 'fwdevops_kgodwin',
         # 'NODE_STATUS': 'active', 'NODE_BUSY': 'no', 'BUSY_CHANGE_COUNT': 659,
         # 'LAST_BUSY_CHANGE': datetime.datetime(2022, 12, 1, 23, 57, 41, 459249,
-        # tzinfo=psycopg2.tz.FixedOffsetTimezone(offset=0, name=None)), 'DNS_NAME': '6600283D97.itron.com', 'PEER_GROUP': 'groupb', 'LOCK_HOST': 'kg-di-dev.kghome'}
+        # tzinfo=psycopg2.tz.FixedOffsetTimezone(offset=0, name=None)), 'DNS_NAME': '6600283D97.rohan.com', 'PEER_GROUP': 'groupb', 'LOCK_HOST': 'kg-di-dev.kghome'}
         self.db = db
         self.ip = db.info['NODE_IP']
         self.last_time = db.info['LAST_BUSY_CHANGE']
@@ -370,7 +370,7 @@ def main():
     parent_parser.add_argument('--mdb_version', action='version', version='%(prog)s 2.0')
 
     def_dut_db = os.getenv("PYTEST_DUT_DB")
-    parent_parser.add_argument('--dut-db', type=str, default=def_dut_db if def_dut_db else "kaizenbot.itron.com:5432")
+    parent_parser.add_argument('--dut-db', type=str, default=def_dut_db if def_dut_db else "kaizenbot.rohan.com:5432")
 
     parser = argparse.ArgumentParser(description='Meter Database Manager - manage meter database')
     # create sub-parser for all commands

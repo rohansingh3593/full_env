@@ -1,5 +1,5 @@
 """
-Module to support SSH connection to Gen5 Itron Meter
+Module to support SSH connection to Gen5 rohan Meter
 
 This is a connection oriented interface.
 
@@ -14,8 +14,8 @@ import os
 import stat
 import time
 import subprocess  # For executing a shell command
-from itron.meter.AbstractMeter import AbstractMeter
-from itron.meter.MeterInstance import MeterInstanceBase
+from rohan.meter.AbstractMeter import AbstractMeter
+from rohan.meter.MeterInstance import MeterInstanceBase
 from . import MeterMan
 from . import AsMan
 import json
@@ -23,7 +23,7 @@ import logging
 import tempfile
 import tarfile
 import shutil
-import itron.meter.FwMan as FwMan
+import rohan.meter.FwMan as FwMan
 import re
 from .utils import (ping, MyZipFile)
 from .MeterMan import FilterMatch
@@ -41,7 +41,7 @@ class SSHGen5Meter(AbstractMeter):
         meter.
 
         Usage:
-            from itron.meter.Gen5Meter import SSHGen5Meter
+            from rohan.meter.Gen5Meter import SSHGen5Meter
 
             with SSHGen5Meter('my_meter', logger) as meter:
                 # execute command on meter and return list lines of output
@@ -442,8 +442,8 @@ class SSHGen5Meter(AbstractMeter):
         logging.info('sussessfully - 12311212')
 
         
-        # didir = os.path.join(rfs, 'usr/share/itron/improv/Diff.Install/AppServ')
-        didir = os.path.join(rfs, 'usr/share/itron/PreInstall')
+        # didir = os.path.join(rfs, 'usr/share/rohan/improv/Diff.Install/AppServ')
+        didir = os.path.join(rfs, 'usr/share/rohan/PreInstall')
 
         cur_pack = self._find_file(didir, "DI-AppServices-Package")
         logger.info("wrapped DI package being replaced: %s", cur_pack)
@@ -490,7 +490,7 @@ class SSHGen5Meter(AbstractMeter):
         cmd = ' '.join([otapack, os.path.basename(TARGET_TMP), SIGNED_NAME])
         subprocess.check_call(cmd, shell=True, cwd=rohan)
         logger.info("Calling signtool for %s", SIGNED_NAME)
-        output = subprocess.check_output(' '.join([signer, '-k', 'itron-test', 'x', SIGNED_NAME]), shell=True, cwd=rohan)
+        output = subprocess.check_output(' '.join([signer, '-k', 'rohan-test', 'x', SIGNED_NAME]), shell=True, cwd=rohan)
         lines = output.decode('utf-8').splitlines()
         for line in lines:
             logging.info(line)
@@ -538,7 +538,7 @@ class SSHGen5Meter(AbstractMeter):
         subprocess.check_call(cmd, shell=True, cwd = workdir)
         logging.info(f"Calling signtool for new_{tar_gz_fie}")
 
-        output = subprocess.check_output(' '.join([signer, '-k', 'itron-test', 'x', f'new_{tar_gz_fie}']), shell=True, cwd=workdir)
+        output = subprocess.check_output(' '.join([signer, '-k', 'rohan-test', 'x', f'new_{tar_gz_fie}']), shell=True, cwd=workdir)
         lines = output.decode('utf-8').splitlines()
         for line in lines:
             logging.info(line)

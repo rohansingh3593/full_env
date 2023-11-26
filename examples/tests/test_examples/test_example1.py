@@ -1,4 +1,4 @@
-from itron.meter import AsMan
+from rohan.meter import AsMan
 import kaizenbot.connection
 import os
 import json

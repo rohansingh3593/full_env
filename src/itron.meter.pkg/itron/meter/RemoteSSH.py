@@ -23,7 +23,7 @@ class RemoteSSH(SSHClient):
         self.logger = logging.LoggerAdapter(logger, {"meter": hostname})
         self.hostname = hostname
         try:
-            super().__init__(hostname, user='root',password='itron',timeout=timeout)
+            super().__init__(hostname, user='root',password='rohan',timeout=timeout)
         except (socket.timeout, pssh.exceptions.Timeout, pssh.exceptions.ConnectionError):
             self.logger.info("Meter non-responsive")
             raise SSHConnectError
@@ -35,7 +35,7 @@ class RemoteSSH(SSHClient):
     def upload_keys( self ):
         self.logger.info("Uploading SSH keys...")
         home = os.getenv("HOME")
-        subprocess.run(["sshpass", "-p", "itron", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=False)
+        subprocess.run(["sshpass", "-p", "rohan", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=False)
 
     def command(self, cmd, **kwargs):
         code, data = self.execute_command(cmd,**kwargs)
@@ -64,14 +64,14 @@ class RemoteSSH(SSHClient):
         def progress(filename, size, sent):
             self.logger.info("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
 
-        channel = SSHClient(self.hostname, user='root',password='itron',timeout=120)
+        channel = SSHClient(self.hostname, user='root',password='rohan',timeout=120)
         channel.scp_send(src, target)
         channel.disconnect()
 
     def get_file(self, src, target):
         def progress(filename, size, sent):
             self.logger.info("%s\'s progress: %.2f%%   \r" % (filename, float(sent)/float(size)*100) )
-        channel = SSHClient(self.hostname, user='root',password='itron',timeout=120)
+        channel = SSHClient(self.hostname, user='root',password='rohan',timeout=120)
         target = os.path.realpath(target)
         channel.scp_recv(src, target)
         channel.disconnect()

@@ -5,7 +5,7 @@ import os
 from xdist.workermanage import NodeManager
 import random
 from xdist.dsession import DSession
-from itron.plugins.affinitysched import LoadAffinityScheduling
+from rohan.plugins.affinitysched import LoadAffinityScheduling
 
 class MeterScheduler(LoadAffinityScheduling):
     def __init__(self, config, logger, lock_timeout, max_meters, log=None, meters=None, multi=None):

@@ -21,9 +21,9 @@ def get_gittop():
     GITTOP=repo.working_tree_dir
     return GITTOP
 
-import itron.meter.AsMan as AsMan
-import itron.meter.MeterMan as mm
-import itron.meter.Gen5Meter as Gen5Meter
+import rohan.meter.AsMan as AsMan
+import rohan.meter.MeterMan as mm
+import rohan.meter.Gen5Meter as Gen5Meter
 
 IMPROV_INSTALL="ENABLE_IMPROV_SCRIPT_LOGS=1 ImProvHelper.sh"
 
@@ -240,9 +240,9 @@ class cmd_preinstall(CommandEntry):
 
     def run_command(self, mgr, args, unknown):
         with Gen5Meter.SSHGen5Meter(args.target, logger) as g5m:
-            files = g5m.ls('/usr/share/itron/PreInstall')
+            files = g5m.ls('/usr/share/rohan/PreInstall')
             for file in files:
-                g5m.install(file=os.path.join('/usr/share/itron/PreInstall',file), remote_file=True)
+                g5m.install(file=os.path.join('/usr/share/rohan/PreInstall',file), remote_file=True)
 
 
 class cmd_verinfo(CommandEntry):
@@ -303,7 +303,7 @@ class cmd_repack(CommandEntry):
 
 def curses_run(screen, args, unknown):
     import curses
-    from itron.meter.MeterDB import MeterDB
+    from rohan.meter.MeterDB import MeterDB
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     class CursesHandler(logging.Handler):
@@ -459,9 +459,9 @@ def main():
 
     remove_handler = None
 
-    if os.path.exists(f"{HOME}/itronGit/{TARGET}"):
+    if os.path.exists(f"{HOME}/rohanGit/{TARGET}"):
 
-        LOGFILE = f"{HOME}/itronGit/{TARGET}/mm.log"
+        LOGFILE = f"{HOME}/rohanGit/{TARGET}/mm.log"
 
         handler = logging.handlers.RotatingFileHandler(
             LOGFILE, maxBytes=(1048576*5), backupCount=7
@@ -471,7 +471,7 @@ def main():
         handler.setLevel(logging.INFO)
         handlers.append(handler)
 
-        LOGFILE = f"{HOME}/itronGit/{TARGET}/mmcmd.log"
+        LOGFILE = f"{HOME}/rohanGit/{TARGET}/mmcmd.log"
 
         handler2 = logging.handlers.RotatingFileHandler(
             LOGFILE, maxBytes=(1048576*5), backupCount=7

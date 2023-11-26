@@ -7,7 +7,7 @@ import paramiko
 import scp
 import time
 import serial
-from itron.meter.expect import ParamikoExpect
+from rohan.meter.expect import ParamikoExpect
 import re
 import random
 import string
@@ -67,7 +67,7 @@ class SerialExpect(ParamikoExpect):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # itron xmodem send/recv
+        # rohan xmodem send/recv
         self.send_x = 'lsx'
         self.recv_x = 'lrx'
 
@@ -134,7 +134,7 @@ class SerialExpect(ParamikoExpect):
         self.logger.debug("Sent %s bytes to remote system", result)
 
     def set_xmodem(self, send, recv):
-        self.logger.warning("You should probably not set these, unless you are talking to non-itron hardware")
+        self.logger.warning("You should probably not set these, unless you are talking to non-rohan hardware")
         self.send_x = send
         self.recv_x = recv
 
@@ -202,7 +202,7 @@ class RemoteSerial:
         self.logger = logging.LoggerAdapter(logger, {"meter": hostname})
         self.hostname = hostname
         try:
-            self.server = SerialClient(hostname, 'root', 'itron',timeout=timeout, logger=self.logger)
+            self.server = SerialClient(hostname, 'root', 'rohan',timeout=timeout, logger=self.logger)
         except Exception:
             self.logger.info("Meter non-responsive")
             raise

@@ -1,3 +1,3 @@
-#import itron.plugins.parallel
+#import rohan.plugins.parallel
 
-#pytest_plugins = "itron.plugins.parallel"
+#pytest_plugins = "rohan.plugins.parallel"

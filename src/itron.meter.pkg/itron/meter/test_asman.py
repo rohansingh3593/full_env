@@ -1,6 +1,6 @@
 import pytest
 
-from itron.meter import AsMan
+from rohan.meter import AsMan
 import re
 
 def test_asman():

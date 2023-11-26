@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-import itron.meter.Gen5Meter as G5
+import rohan.meter.Gen5Meter as G5
 import logging
-from itron.meter.expect import ParamikoExpect
+from rohan.meter.expect import ParamikoExpect
 
 @pytest.mark.needs_meter
 def test_expect_flow(meter):

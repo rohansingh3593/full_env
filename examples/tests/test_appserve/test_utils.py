@@ -1,5 +1,5 @@
-from itron.meter.Gen5Meter import ParallelMeter
-import itron.meter.AsMan as AsMan
+from rohan.meter.Gen5Meter import ParallelMeter
+import rohan.meter.AsMan as AsMan
 import pytest
 from .utils import verify_appserve
 import os

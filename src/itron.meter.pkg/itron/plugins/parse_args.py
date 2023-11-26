@@ -1,8 +1,8 @@
 from datetime import timedelta
 import os
 from xdist.workermanage import parse_spec_config
-from itron.meter.MeterInstance import MeterInstanceUser
-from  itron.meter.MeterDB import MeterDB
+from rohan.meter.MeterInstance import MeterInstanceUser
+from  rohan.meter.MeterDB import MeterDB
 
 def parse_config(config, name):
     return getattr(config.option, name, config.getini(name))

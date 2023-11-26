@@ -53,9 +53,9 @@ pip install pylibjpeg-libjpeg
 pip install gitpython tblib requests inquirer pytest redexpect pyyaml parallel-ssh
 pip install ./ssh2-python
 pip install setuptools_rust rust tk
-pip install -e src/itron.meter.pkg
-pip install --extra-index-url=http://kaizenbot-azure.itron.com:18080 --trusted-host=kaizenbot-azure.itron.com KaizenBot-Gen5RivaLibrary==1.4.6
-pip install --extra-index-url=http://kaizenbot-azure.itron.com:18080 --trusted-host=kaizenbot-azure.itron.com KaizenBot-AppServLibrary==1.3.1
+pip install -e src/rohan.meter.pkg
+pip install --extra-index-url=http://kaizenbot-azure.rohan.com:18080 --trusted-host=kaizenbot-azure.rohan.com KaizenBot-Gen5RivaLibrary==1.4.6
+pip install --extra-index-url=http://kaizenbot-azure.rohan.com:18080 --trusted-host=kaizenbot-azure.rohan.com KaizenBot-AppServLibrary==1.3.1
 # work around wxPython not building with setuptools 50+
 pip install pytest-html
 pip install pytest-azurepipelines

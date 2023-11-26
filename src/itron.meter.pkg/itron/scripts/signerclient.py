@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2022 Itron, Inc.
+# Copyright (c) 2022 rohan, Inc.
 # Author: Benjamin Loomis
 # File: signer_client.py
 #
@@ -18,7 +18,7 @@ from requests.exceptions import ConnectionError
 from requests.adapters import HTTPAdapter
 
 def main():
-    def_baseurl='http://rdpsigner.itron.com/as/'
+    def_baseurl='http://rdpsigner.rohan.com/as/'
     def_username=os.getenv('signer-client_username', 'muse-dev')
     def_password=os.getenv('signer-client_password', '5mrK6EeXOnvOK9')
     def_keyset='ti-test'
@@ -117,7 +117,7 @@ def main():
     default=def_password, metavar="PASSWORD")
 
     parser.add_argument("--keyset","-k",
-    help="Keyset (ti-test, itron-test, asic-test, etc). Default: " + def_keyset, required=False,
+    help="Keyset (ti-test, rohan-test, asic-test, etc). Default: " + def_keyset, required=False,
     default=def_keyset, metavar="KEYSET")
 
     parser.add_argument("--signer","-s",
@@ -141,7 +141,7 @@ def main():
     # inform user of file that needs to be signed
     # and wait for a signed file to show up
     # this depends on the waitforit helper script
-    if keyset=="itron-release" or keyset=='asic-release':
+    if keyset=="rohan-release" or keyset=='asic-release':
         fn = args.UNSIGNED_ZIP[0]
         print("file to be signed: " + fn)
         os.system("$HOME/bin/wait4file.sh signed*zip")

@@ -4,15 +4,15 @@ import logging
 import os
 import json
 import re
-from itron.meter.AbstractMeter import AbstractMeter
+from rohan.meter.AbstractMeter import AbstractMeter
 
 
 LOGGER = logging.getLogger(__name__)
 
-FW_1_7_PLUS_DIR = "/usr/share/itron/DI-AppServices-Package"
+FW_1_7_PLUS_DIR = "/usr/share/rohan/DI-AppServices-Package"
 FW_PRE_1_7_DIR = "/mnt/common/DI-AppServices-Package"
-deleted_list = [ '/usr/share/itron/improv/Diff.Install/AppServ',
-                '/usr/share/itron/DI-AppServicesPackage.New',
+deleted_list = [ '/usr/share/rohan/improv/Diff.Install/AppServ',
+                '/usr/share/rohan/DI-AppServicesPackage.New',
                 '/mnt/common/DI-AppServicesPackage.New',
                 #'/mnt/common/D55-populateFWInformationForAppServices.sql' 
                 ]
@@ -82,7 +82,7 @@ def verify_appserve(logger, meter: AbstractMeter, workdir,  expected_version,no_
     res = cursor.execute("select id,path,version,unsignedhash,enabled  from fwinformation")
 
     for x in res:
-        if x[1] == '/usr/share/itron/sha/appservicesLR.manifest':
+        if x[1] == '/usr/share/rohan/sha/appservicesLR.manifest':
             version = x[2]
             _id = x[0]
             _hash = x[3]
@@ -145,7 +145,7 @@ def verify_hashs(logger,meter,remote_lrfile):
 def verify_uninstaller(logger,meter,workdir,_hash, check_hash=True):
     """ verify that the uninstaller directory matches
         the current installed version """
-    un_dir = "/usr/share/itron/DI-AppServices-Package"
+    un_dir = "/usr/share/rohan/DI-AppServices-Package"
     if not meter.ls(un_dir):
         un_dir = "/mnt/common/DI-AppServices-Package"
 
@@ -178,7 +178,7 @@ def clean_as_and_gmr(logger, meter: AbstractMeter, workdir):
     meter.command(f"rm -rf {FW_PRE_1_7_DIR}.New")
 
     # cleanup db entries
-    meter.command("rm -rf /usr/share/itron/DI*")
+    meter.command("rm -rf /usr/share/rohan/DI*")
 
     for entry in deleted_list:
         meter.command(f"rm -fr {entry}")
@@ -198,14 +198,14 @@ def verify_as_running(logger,meter,workdir):
     return False
 
 def install_all_from_preinstall(logger,meter):
-    files = meter.ls("/usr/share/itron/PreInstall")
+    files = meter.ls("/usr/share/rohan/PreInstall")
     for file in files:
         logger.info("found preinstall file, installing: %s", file)
         meter.install(file=file, remote_file=True)
 
 def install_han_from_preinstall(logger,meter: AbstractMeter):
     """ install the HAN agent """
-    files = meter.ls("/usr/share/itron/PreInstall")
+    files = meter.ls("/usr/share/rohan/PreInstall")
     if files and len(files) == 1:
         logger.info("HAN agent found,  installing")
         meter.install(file=files[0], remote_file=True)

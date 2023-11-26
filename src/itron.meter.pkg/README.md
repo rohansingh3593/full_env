@@ -1,7 +1,7 @@
 Introduction
 ============
 
-itron.meter package is a small tool that provides basic
+rohan.meter package is a small tool that provides basic
 services to communicate with the meter and
 install fw and packages on the meter, and examine
 the muse01.db database

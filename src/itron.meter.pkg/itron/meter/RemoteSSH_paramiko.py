@@ -6,7 +6,7 @@ import subprocess
 import paramiko
 import scp
 import time
-from itron.meter.expect import ParamikoExpect
+from rohan.meter.expect import ParamikoExpect
 
 class CommandResult:
     def __init__(self, out, err, code):
@@ -207,7 +207,7 @@ class RemoteSSH():
         self.logger = logging.LoggerAdapter(logger, {"meter": hostname})
         self.hostname = hostname
         try:
-            self.server = SSHClient(hostname, 'root', 'itron',timeout=timeout, logger=self.logger)
+            self.server = SSHClient(hostname, 'root', 'rohan',timeout=timeout, logger=self.logger)
             self.paramiko_client = self.server.client
         except Exception:
             self.logger.info("Meter non-responsive")
@@ -217,7 +217,7 @@ class RemoteSSH():
         self.logger.info("Uploading SSH keys...")
         home = os.getenv("HOME")
         # note, ignore errors from this action.  We may not have any keys to upload
-        subprocess.run(["sshpass", "-p", "itron", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=True)
+        subprocess.run(["sshpass", "-p", "rohan", "ssh-copy-id",  "-i",  f"{home}/.ssh/id_rsa.pub", f"root@{self.hostname}"], check=True)
 
     def disconnect(self):
         self.paramiko_client.close()

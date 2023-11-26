@@ -4,7 +4,7 @@ import os
 from glob import glob as original_glob
 import re
 
-OWI_URL = 'http://vm-rdgbuild-03.itron.com/OWI_Builds/'
+OWI_URL = 'http://vm-rdgbuild-03.rohan.com/OWI_Builds/'
 OWI_MOUNT = '/mnt/ral-rdgbuild-03/'
 
 

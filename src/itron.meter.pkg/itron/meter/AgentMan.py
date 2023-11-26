@@ -1,7 +1,7 @@
 import os
-from itron.meter.FwMan import Walker
+from rohan.meter.FwMan import Walker
 from typing import List
-from itron.meter.Walker import OWI_URL
+from rohan.meter.Walker import OWI_URL
 
 """ handles finding and decoding agent releases from OWI_BUILDS repo """
 
@@ -18,8 +18,8 @@ class AgentInfo:
 
         @param name          The name of the agent.  Must match the daemon name with _Daemon at the end
         @param version       The version of the daemon
-        @param container_id  Container that the agent lives in. this should be THIRD_PARTY_CONTAINER_ID or ITRON_CONTAINER_ID
-        @param url           The web location in the itron network where the image to be installed on the meter lives
+        @param container_id  Container that the agent lives in. this should be THIRD_PARTY_CONTAINER_ID or rohan_CONTAINER_ID
+        @param url           The web location in the rohan network where the image to be installed on the meter lives
         @param depends_on    A list of library agents that are needed by the agent to function.
         @param has_daemon    Set to False if this is a library agent
         @param reg_name      The actual registration string the agent uses when registring with DI
@@ -41,7 +41,7 @@ class AgentInfo:
 
 
 THIRD_PARTY_CONTAINER_ID = '587464704'
-ITRON_CONTAINER_ID = '50593792'
+rohan_CONTAINER_ID = '50593792'
 
 def get_name_from_url(url):
     items=url.split('/')
@@ -59,7 +59,7 @@ def get_name_from_url(url):
     return name, version
 
 class AgentInfoAuto(AgentInfo):
-    def __init__(self, url, container_id=ITRON_CONTAINER_ID, depends_on=[]):
+    def __init__(self, url, container_id=rohan_CONTAINER_ID, depends_on=[]):
         name,version = get_name_from_url(url)
         super().__init__(name, version, container_id, url, depends_on)
 
@@ -92,6 +92,6 @@ class AgentMan:
         assert name == agentname
 
         #todo: extract container name from agent
-        container = ITRON_CONTAINER_ID
+        container = rohan_CONTAINER_ID
         return AgentInfo(name, version, container, url)
 

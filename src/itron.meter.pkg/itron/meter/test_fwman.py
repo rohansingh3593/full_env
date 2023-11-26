@@ -1,8 +1,8 @@
 import pytest
 import os
 
-from itron.meter import FwMan
-from itron.meter.FwMan import get_build_path
+from rohan.meter import FwMan
+from rohan.meter.FwMan import get_build_path
 import re
 import json
 import glob
@@ -132,7 +132,7 @@ def test_make_fw_csv():
 def test_connection():
     from kaizenbot.kbotdbclient_psql import _KBotDBClient_psql
 
-    resources =_KBotDBClient_psql('kaizenbot.itron.com:5432', "kgodwin", 'AppServe', 'appservschema')
+    resources =_KBotDBClient_psql('kaizenbot.rohan.com:5432', "kgodwin", 'AppServe', 'appservschema')
     allot = resources.allot_all_nodes()
     logger.info("Allot: %s", allot)
     nodes = resources.read_all_nodes()
